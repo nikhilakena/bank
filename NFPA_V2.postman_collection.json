@@ -1,0 +1,3134 @@
+{
+	"info": {
+		"_postman_id": "ff57a06f-5c0c-4035-9d46-6d844e405c77",
+		"name": "NFPA_V2",
+		"description": "This collection focuses on regression testing of NFPA API version 2. You will be able to find test cases covering PUT, POST and GET operations of the API within this collection.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32687231"
+	},
+	"item": [
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "test_data_creation_CIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"pm.test(\"Agreement ID present check\", function(){\r",
+									"pm.expect(jsonData.agreementId).exist;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Status Code is 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"var CIN_agreementid = jsonData.agreementId;\r",
+									"pm.environment.set(\"CIN_agreementid\",CIN_agreementid);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x509-ou",
+								"value": "Service Token Application"
+							},
+							{
+								"key": "x509v3-san2",
+								"value": "KnV2Pfoz7P"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"agreementAdministrationCode\": \"GPA\"\n}"
+						},
+						"url": {
+							"raw": "http://api-dev-iag.nl.eu.abnamro.com/agreementidentifier/v1/reservation",
+							"protocol": "http",
+							"host": [
+								"api-dev-iag",
+								"nl",
+								"eu",
+								"abnamro",
+								"com"
+							],
+							"path": [
+								"agreementidentifier",
+								"v1",
+								"reservation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_2_SUCCESS_CREATE_NFPA_CIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"pm.test(\"Agreement ID present check\", function(){\r",
+									"pm.expect(jsonData.agreementId).exist;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Status Code is 201\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"description": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_2",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementId\" : {{CIN_agreementid}},\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_1_SUCCESS_CREATE_NFPA",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json()\r",
+									"pm.test(\"Agreement ID present check\", function(){\r",
+									"pm.expect(jsonData.agreementId).exist;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Status Code is 201\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"//var jsonData = pm.response.json();\r",
+									"var agreementId = jsonData.agreementId;\r",
+									"pm.environment.set(\"agreementId\",agreementId);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"description": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_1",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"ABCD\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_3_ERROR_CONSUMER_ID_LENGTH_EXCEEDED",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"CONSUMER_ID_LENGTH_EXCEEDED\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Consumer ID is exceeding the maximum field length of 50 characters.\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "100000000010000000001000000000100000000010000000001000000000",
+								"description": "100000000010000000001000000000100000000010000000001000000000",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_3",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_4_ERROR_CONSUMER_ID_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"CONSUMER_ID_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Consumer ID is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_5_ERROR_PRODUCT_ID_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"PRODUCT_ID_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Product Id is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_5",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"4444123\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_6_ERROR_PRODUCT_ID_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"PRODUCT_ID_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Product ID is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_7_ERROR_PRODUCT_ID_NOT_REGISTERED",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"PRODUCT_ID_NOT_REGISTERED\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Product ID is not present in the General Product Agreement Administration\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_7",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"313\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_8_ERROR_CUSTOMER_ID_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"CUSTOMER_ID_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Customer Id is invalid.\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_8",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 7989010400000,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_9_ERROR_CUSTOMER_ID_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"CUSTOMER_ID_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Customer ID is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_9",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_10_ERROR_AGREEMENT_START_DATE_TIME_FORMAT_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_START_DATE_TIME_FORMAT_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement start dateTime is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_10",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.9999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_11_ERROR_AGREEMENT_START_DATE_TIME_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_START_DATE_TIME_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement start date time is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_11",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_12_ERROR_AGREEMENT_END_DATE_TIME_FORMAT_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_END_DATE_TIME_FORMAT_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Format of the Agreement end dateTime is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_12",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.9999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_13_ERROR_AGREEMENT_END_DATE_TIME_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_END_DATE_TIME_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement end dateTime is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_13",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_14_ERROR_AGREEMENT_START_END_DATE_TIME_COMBINATION_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_START_END_DATE_TIME_COMBINATION_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement end dateTime is less than or equal to Agreement start dateTime\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_14",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_15_ERROR_AGREEMENT_LIFECYCLE_STATUS_TYPE_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_LIFECYCLE_STATUS_TYPE_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement Lifecycle Status is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_15",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"EXIT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_16_ERROR_AGREEMENT_LIFECYCLE_STATUS_TYPE_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_LIFECYCLE_STATUS_TYPE_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement Lifecycle Status is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_16",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\":\"\",    \r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_17_ERROR_ATTRIBUTE_NAME_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"ATTRIBUTE_NAME_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Attribute name % is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_17",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 61058521,\r\n      \"agreementStartDateTime\": \"2020-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2020-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n         {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_18_ERROR_ATTRIBUTE_NAME_NOT_APPLICABLE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"ATTRIBUTE_NAME_NOT_APPLICABLE\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Attribute Name % is not applicable for input Product.\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_18",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementId\" : \"1458556624\",\r\n    \"customerId\": 61058521,\r\n   \"agreementStartDateTime\": \"2020-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2020-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n         {\r\n            \"attributeName\": \"TESTIBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_19_ERROR_MANDATORY_ATTRIBUTE_NOT_PROVIDED",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"MANDATORY_ATTRIBUTE_NOT_PROVIDED\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Mandatory Attribute is not provided for input Product\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_19",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_20_ERROR_ATTRIBUTE_VALUE_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"ATTRIBUTE_VALUE_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Maximum length for Attribute Name : IBAN is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_20",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n  \"agreementStartDateTime\": \"2024-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2024-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"{{invalid_attribute}}\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_21_ERROR_AGREEMENT_ID_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_ID_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement ID is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_21",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementId\" : 70000000055555555,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_22_ERROR_AGREEMENT_ID_ALREADY_PRESENT",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_ID_ALREADY_PRESENT\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement ID is already present in the General Product Agreement Administration\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_22",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementId\" : 1343756188,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_23_ERROR_USER_ID_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"USER_ID_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"User ID is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_23",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_POST_24_ERROR_CONSUMER_UNAUTHORIZED",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"CONSUMER_UNAUTHORIZED\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Consumer is not authorized for this operation\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"401\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "{{Only_read}}",
+								"type": "text"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_POST_24",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n    \"agreementStartDateTime\": \"2023-12-21T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2023-12-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "TC_NFPA_PUT_1_SUCCESS_UPDATE_NFA_V2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code is 204\", function(){\r",
+									"    pm.response.to.have.status(204);\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_1",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n  \"agreementStartDateTime\": \"2024-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2024-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_2_ERROR_CONSUMER_ID_LENGTH_EXCEEDED",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"CONSUMER_ID_LENGTH_EXCEEDED\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Consumer ID is exceeding the maximum field length of 50 characters.\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "100000000010000000001000000000100000000010000000001000000000555555",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_2",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n  \"agreementStartDateTime\": \"2024-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2024-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_3_ERROR_CONSUMER_ID_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"CONSUMER_ID_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Consumer ID is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_3",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"agreementStartDateTime\": \"2024-05-28T14:07:17.999Z\",\r\n  \"agreementEndDateTime\": \"2024-05-29T14:07:17.999Z\",\r\n  \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n  \"userId\": \"AUTUSR\",\r\n  \"attributes\": [\r\n    {\r\n      \"attributeName\": \"Processor Type\",\r\n      \"attributeValue\": \"G4S\"\r\n    }\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_4_ERROR_AGREEMENT_START_DATE_TIME_FORMAT_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_START_DATE_TIME_FORMAT_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement start dateTime is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementId\" : \"1458556623\",\r\n    \"customerId\": 61058521,\r\n  \"agreementStartDateTime\": \"2024-01-28T14:07:17.99Z\",\r\n    \"agreementEndDateTime\": \"2024-01-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_5_ERROR_AGREEMENT_START_DATE_TIME_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_START_DATE_TIME_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement start date time is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_5",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementId\" : \"1458556623\",\r\n    \"customerId\": 61058521,\r\n    \"agreementEndDateTime\": \"2024-01-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_6_ERROR_AGREEMENT_END_DATE_TIME_FORMAT_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_END_DATE_TIME_FORMAT_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Format of the Agreement end dateTime is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_6",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementId\" : \"1458556623\",\r\n    \"customerId\": 61058521,\r\n    \"agreementStartDateTime\": \"2024-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2024-05-29T14:07:17.99Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_7_ERROR_AGREEMENT_END_DATE_TIME_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_END_DATE_TIME_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement end dateTime is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_7",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementId\" : \"1458556623\",\r\n    \"customerId\": 61058521,\r\n     \"agreementStartDateTime\": \"2024-05-28T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_8_ERROR_AGREEMENT_START_END_DATE_TIME_COMBINATION_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_START_END_DATE_TIME_COMBINATION_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement end dateTime is less than or equal to Agreement start dateTime\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_8",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementId\" : \"1458556623\",\r\n    \"customerId\": 61058521,\r\n    \"agreementStartDateTime\": \"2024-05-30T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2024-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_9_ERROR_AGREEMENT_LIFECYCLE_STATUS_TYPE_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_LIFECYCLE_STATUS_TYPE_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement Lifecycle Status is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_9",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementId\" : \"1458556624\",\r\n    \"customerId\": 61058521,\r\n      \"agreementStartDateTime\": \"2020-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2020-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"APPROVED\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_10_ERROR_AGREEMENT_LIFECYCLE_STATUS_TYPE_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_LIFECYCLE_STATUS_TYPE_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement Lifecycle Status is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_10",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementId\" : \"1458556624\",\r\n    \"customerId\": 61058521,\r\n      \"agreementStartDateTime\": \"2020-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2020-05-29T14:07:17.999Z\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_11_ERROR_ATTRIBUTE_NAME_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"ATTRIBUTE_NAME_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Attribute name % is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_11",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 61058521,\r\n      \"agreementStartDateTime\": \"2020-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2020-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n         {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_12_ERROR_ATTRIBUTE_NAME_NOT_APPLICABLE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"ATTRIBUTE_NAME_NOT_APPLICABLE\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Attribute Name % is not applicable for input Product.\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_12",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementId\" : \"1458556624\",\r\n    \"customerId\": 61058521,\r\n   \"agreementStartDateTime\": \"2020-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2020-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n         {\r\n            \"attributeName\": \"TESTIBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_13_ERROR_MANDATORY_ATTRIBUTE_NOT_PROVIDED",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"MANDATORY_ATTRIBUTE_NOT_PROVIDED\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Mandatory Attribute is not provided for input Product\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_13",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementId\" : \"1458556624\",\r\n    \"customerId\": 61058521,\r\n    \"agreementStartDateTime\": \"2020-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2020-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n      \r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_14_ERROR_ATTRIBUTE_VALUE_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"ATTRIBUTE_VALUE_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Maximum length for Attribute Name : IBAN is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_14",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n  \"agreementStartDateTime\": \"2024-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2024-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"{{invalid_attribute}}\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_15_ERROR_AGREEMENT_ID_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_ID_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement ID is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_15",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"agreementId\" : \"14585566256\",\r\n    \"customerId\": 61058521,\r\n      \"agreementStartDateTime\": \"2020-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2020-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"ACTIVE\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/14585566256",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"14585566256"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_16_ERROR_USER_ID_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"USER_ID_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"User ID is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_16",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n  \"agreementStartDateTime\": \"2024-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2024-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_17_ERROR_AGREEMENT_NOT_FOUND",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(404);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_NOT_FOUND\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement not found in the General Product Agreement Administration\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"404\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_17",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n  \"agreementStartDateTime\": \"2024-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2024-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/1343754176",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"1343754176"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_PUT_18_ERROR_CONSUMER_UNAUTHORIZED",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 401\", function(){\r",
+									"    pm.response.to.have.status(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"CONSUMER_UNAUTHORIZED\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Consumer is not authorized for this operation\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"401\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "{{Only_read}}",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_PUT_18",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"{{produtc_id}}\",\r\n    \"customerId\": 76890104,\r\n  \"agreementStartDateTime\": \"2024-05-28T14:07:17.999Z\",\r\n    \"agreementEndDateTime\": \"2024-05-29T14:07:17.999Z\",\r\n    \"agreementLifeCycleStatusType\": \"DRAFT\",\r\n    \"attributes\": [\r\n        {\r\n            \"attributeName\": \"IBAN\",\r\n            \"attributeValue\": \"NL38ABNA0824296273\"\r\n        },\r\n        {\r\n            \"attributeName\": \"BC Numbers users\",\r\n            \"attributeValue\": \"AT21084784\"\r\n        }\r\n    ],\r\n    \"userId\": \"AUTUSR\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "TC_NFPA_GET_1_SUCCESS_RETRIVED",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 200\", function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Schema Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.productId).exist;\r",
+									"    pm.expect(jsonData.customerId).exist;\r",
+									"    pm.expect(jsonData.agreementStartDateTime).exist;\r",
+									"    pm.expect(jsonData.agreementEndDateTime).exist;\r",
+									"    pm.expect(jsonData.createdBy).exist;\r",
+									"    pm.expect(jsonData.createdDateTime).exist;\r",
+									"    pm.expect(jsonData.agreementLifeCycleStatusType).exist;\r",
+									"    //pm.expect(jsonData.userId).exist;\r",
+									"\r",
+									"   _.each(jsonData.attributes, (item) => {\r",
+									"    pm.expect(item.attributeValue).exist;\r",
+									"    pm.expect(item.attributeName).exist;\r",
+									"})\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_GET_1",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_GET_2_ERROR_AGREEMENT_ID_INVALID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_ID_INVALID\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement ID is invalid\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_GET_2",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/14585566256",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"14585566256"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_GET_3_ERROR_CONSUMER_ID_LENGTH_EXCEEDED",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"CONSUMER_ID_LENGTH_EXCEEDED\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Consumer ID is exceeding the maximum field length of 50 characters.\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "100000000010000000001000000000100000000010000000001000000000",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_GET_3",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_GET_4_ERROR_CONSUMER_ID_MANDATORY",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"CONSUMER_ID_MANDATORY\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Consumer ID is not provided\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"400\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_GET_4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_GET_5_ERROR_CONSUMER_UNAUTHORIZED",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(401);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"CONSUMER_UNAUTHORIZED\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Consumer is not authorized for this operation\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"401\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "{{Only_read}}",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_GET_5",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/{{agreementId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"{{agreementId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TC_NFPA_GET_6_ERROR_AGREEMENT_NOT_FOUND",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status Code is 400\", function(){\r",
+									"    pm.response.to.have.status(404);\r",
+									"})\r",
+									"\r",
+									"\r",
+									"pm.test(\"JSON Value Check\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.errors[0].code).to.eql(\"AGREEMENT_NOT_FOUND\");\r",
+									"    pm.expect(jsonData.errors[0].message).to.eql(\"Agreement not found in the General Product Agreement Administration\");\r",
+									"    pm.expect(jsonData.errors[0].status).to.eql(\"404\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Consumer-Id",
+								"value": "016589",
+								"type": "default"
+							},
+							{
+								"key": "Trace-Id",
+								"value": "TC_NFPA_GET_6",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/nonfinancialproductagreements/v2/1343754176",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"nonfinancialproductagreements",
+								"v2",
+								"1343754176"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
